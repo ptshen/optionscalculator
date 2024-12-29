@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Spread Payoff Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Options Spread Payoff Calculator</h1>
+        <form id="optionsForm">
+
+            <div class="input-group">
+                <label for="priceInputMethod">Choose input method:</label>
+                <select id="priceInputMethod" name="priceInputMethod">
+                    <option value="ticker">Use Stock Ticker</option>
+                    <option value="manual">Enter Stock Price Manually</option>
+                </select>
+            </div>
+
+            <div id="tickerInput">
+                <label for="stockTicker">Stock Ticker:</label>
+                <input type="text" id="stockTicker" required>
+            </div>
+
+            <div id="manualPriceInput" style="display: none;">
+                <label for="stockPrice">Current Stock Price:</label>
+                <input type="number" id="stockPrice" step="0.01" required>
+            </div>
+
+            <label for="numContracts">Number of Options Contracts:</label>
+            <input type="number" id="numContracts" min="1" required>
+            <button type="button" onclick="generateContractInputs()">Generate Contract Inputs</button>
+
+            <div id="contractInputs"></div>
+
+            <button type="button" onclick="calculatePayoff()">Calculate Payoff</button>
+        </form>
+
+        <div id="result"></div>
+        <canvas id="payoffChart"></canvas>
+
+
+
+        <button id="toggleSpreads">Common Option Spreads</button>
+<div id="spreadInfo" style="display: none;">
+    <h2>Common Option Spreads</h2>
+    <h3>Bull Call Spread</h3>
+    <p>A bull call spread involves <strong><em>buying a call option</em></strong> and <strong><em>selling another call option</em></strong> with a <strong>higher strike price</strong>. Use this strategy when you're moderately bullish on a stock and want to reduce the cost of buying calls.</p>
+    <h3>Bear Put Spread</h3>
+    <p>A bear put spread involves <strong><em>buying a put option</em></strong> and <strong><em>selling another put option</em></strong> with a <strong>lower strike price</strong>. This strategy is useful when you're moderately bearish on a stock and want to limit your risk.</p>
+    <h3>Iron Condor</h3>
+    <p>An iron condor combines a <strong><em>bull put spread</em></strong> and a <strong><em>bear call spread.</em></strong> It's ideal when you expect the underlying asset to remain within a specific price range, allowing you to profit from time decay.</p>
+    <h3>Butterfly Spread</h3>
+    <p>A butterfly spread involves <strong><em>buying one call (put) at a lower strike, selling two calls (puts) at a middle strike, and buying one call (put) at a higher strike.</em></strong> Use this when you expect little price movement and want to profit from time decay.</p>
+</div>
+
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
